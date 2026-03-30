@@ -46,8 +46,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile
 
 # ✅ Build API and worker from correct workspaces
-RUN pnpm --filter ./apps/api run build && \
-    pnpm --filter ./apps/worker run build
+RUN pnpm -r run buil
 
 # Remove dev dependencies
 RUN pnpm prune --prod --ignore-scripts
