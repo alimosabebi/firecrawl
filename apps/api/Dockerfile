@@ -46,7 +46,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile
 
 # Build the application
-RUN pnpm --filter ./apps/api run build
+RUN pnpm run build
 
 # Remove dev dependencies
 RUN pnpm prune --prod --ignore-scripts
