@@ -69,8 +69,11 @@ WORKDIR /app
 
 
 # ✅ Correct build outputs
+COPY --from=build /app/apps/api/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/dist ./dist
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
+COPY --from=build /app/apps/api/package.json ./apps/api/package.json
 
 
 
