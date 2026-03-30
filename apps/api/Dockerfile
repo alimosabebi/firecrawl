@@ -19,12 +19,12 @@ RUN cd sharedLibs/go-html-to-md && \
 FROM base AS build
 WORKDIR /app
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     build-essential \
     pkg-config \
     python3 \
+    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Rust
@@ -46,7 +46,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --frozen-lockfile
 
 # ✅ Build API and worker from correct workspaces
-RUN pnpm run build:docker
+RUN pnpm run build:nosentry
 
 # Remove dev dependencies
 RUN pnpm prune --prod --ignore-scripts
