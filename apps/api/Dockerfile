@@ -74,7 +74,10 @@ COPY --from=build /app/apps/api/dist ./dist
 COPY --from=build /app/apps/api/native ./native
 
 
+
 # Copy Go shared library
-COPY --from=go-build /app/sharedLibs/go-html-to-md/libhtml-to-markdown.so ./sharedLibs/go-html-to-md/
+COPY --from=go-build /app/sharedLibs/go-html-to-md/libhtml-to-markdown.so \
+    ./sharedLibs/go-html-to-md/
 
 CMD ["node", "dist/src/harness.js", "--start-docker"]
+
