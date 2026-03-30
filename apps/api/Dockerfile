@@ -47,9 +47,8 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
 
 # ✅ Build API and worker from correct workspaces
 
-WORKDIR /app/apps/api
-RUN pnpm run build:nosentry
 WORKDIR /app
+RUN pnpm --filter firecrawl-scraper-js run build:nosentry
 
 
 # Remove dev dependencies
