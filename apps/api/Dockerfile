@@ -64,14 +64,12 @@ RUN apt-get update && apt-get install -y \
 EXPOSE 8080
 WORKDIR /app
 
-# Copy node modules
+
+# ✅ Correct build outputs
 COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/native ./native
 
-# Copy API build output
-COPY --from=build /app/apps/api/dist ./dist
-
-# Copy API native output (if present)
-COPY --from=build /app/apps/api/native ./native
 
 
 
