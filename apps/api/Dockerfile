@@ -64,10 +64,15 @@ RUN apt-get update && apt-get install -y \
 EXPOSE 8080
 WORKDIR /app
 
-# Copy built application
+# Copy node modules
 COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/native ./native
+
+# Copy API build output
+COPY --from=build /app/apps/api/dist ./dist
+
+# Copy API native output (if present)
+COPY --from=build /app/apps/api/native ./native
+
 
 # Copy Go shared library
 COPY --from=go-build /app/sharedLibs/go-html-to-md/libhtml-to-markdown.so ./sharedLibs/go-html-to-md/
