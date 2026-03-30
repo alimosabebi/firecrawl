@@ -5,29 +5,27 @@ services:
       context: .
       dockerfile: apps/api/Dockerfile
     ports:
-      - "3002:8080"
+      - '3002:8080'
     environment:
       PORT: 8080
-      NODE_ENV: production
-      REDIS_URL: redis://redis:6379
-      REDIS_RATE_LIMIT_URL: redis://redis:6379
-      PLAYWRIGHT_MICROSERVICE_URL: http://playwright:3000
+      REDIS_URL: 'redis://redis:6379'
+      REDIS_RATE_LIMIT_URL: 'redis://redis:6379'
+      PLAYWRIGHT_MICROSERVICE_URL: 'http://worker:3002'
     depends_on:
       - redis
-      - playwright
+      - worker
 
   worker:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
-    command: pnpm run worker
+    command: 'pnpm run worker'
     environment:
-      NODE_ENV: production
-      REDIS_URL: redis://redis:6379
-      PLAYWRIGHT_MICROSERVICE_URL: http://playwright:3000
+      REDIS_URL: 'redis://redis:6379'
+      PLAYWRIGHT_MICROSERVICE_URL: 'http://worker:3002'
     depends_on:
       - redis
-      - playwright
+
   redis:
     image: redis:7-alpine
 
