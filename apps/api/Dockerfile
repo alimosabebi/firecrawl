@@ -49,6 +49,8 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
 
 WORKDIR /app
 RUN pnpm --filter firecrawl-scraper-js run build:nosentry
+RUN ls -la /app/apps/api/ || true
+RUN ls -la /app/apps/api/dist/ || echo "dist directory does not exist"
 
 
 # Remove dev dependencies
